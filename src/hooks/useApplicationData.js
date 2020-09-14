@@ -10,7 +10,7 @@ function useApplicationData() {
     interviewers: []
   });
 
-  console.log('STATE DAYS -->', state.days)
+  // console.log('STATE DAYS -->', state.days)
 
   const setDay = day => setState({ ...state, day });
 
@@ -54,7 +54,7 @@ function useApplicationData() {
     };
 
     const day = getDay(id)
-    console.log(`day: ${JSON.stringify(day)}`)
+    // console.log(`day: ${JSON.stringify(day)}`)
     const new_day = {
       ...day,
       spots: day.spots - 1

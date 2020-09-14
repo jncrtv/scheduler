@@ -46,7 +46,7 @@ export default function Application(props) {
     />);
   });
 
-  console.log('STATE from Application.js-->', state)
+  // console.log('STATE from Application.js-->', state)
 
   return (
     <main className="layout">
