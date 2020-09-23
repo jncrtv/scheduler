@@ -10,8 +10,6 @@ function useApplicationData() {
     interviewers: []
   });
 
-  // console.log('STATE DAYS -->', state.days)
-
   const setDay = day => setState({ ...state, day });
 
   useEffect(() => {
@@ -22,7 +20,6 @@ function useApplicationData() {
     ])
       .then(
         ([{data: days}, {data: appointments}, {data: interviewers}]) => {
-        // console.log('ALL --> ', all)
         setState((prev) => ({ 
           ...prev,
           days,
@@ -36,9 +33,8 @@ function useApplicationData() {
     }, [])
 
 
-  //BOOK INTERVIEW APPT FUNCTION ---
+  //books/edits interview and updates spots displayed
   function bookInterview(id, interview, isUpdate) {
-    // console.log('Book --->', id, interview);
 
     const getDay = (appointment_id) => {
       return state.days.filter( day => day.appointments.includes(appointment_id))[0]
@@ -55,14 +51,9 @@ function useApplicationData() {
     };
 
     const day = getDay(id)
-    // console.log(`day: ${JSON.stringify(day)}`)
     
     const new_day = {...day, spots: (isUpdate) ? day.spots : day.spots - 1 }
 
-    // const new_day = {
-    //   ...day,
-    //   spots: day.spots + 1
-    // }
 
     let new_days = state.days
 
@@ -71,11 +62,6 @@ function useApplicationData() {
         new_days.splice(i, 1, new_day )
       }
     }
-
-    // const days = {
-    //   ...state.days,
-    //   [id]: day
-    // }
     
     return axios.put(`/api/appointments/${id}`, appointment)
     .then(response => {
@@ -88,7 +74,7 @@ function useApplicationData() {
       })
   }
 
-  //CANCEL INTERVIEW APPT FUNCTION ---
+  //cancels interview and updates spots displayed
   function cancelInterview(id, interview) {
     const appointment = {
       ...state.appointments[id],
@@ -100,8 +86,6 @@ function useApplicationData() {
       [id]: appointment
     };  
 
-    //-------- REFACTOR
-    // Create a helper function to take in id, and a boolean to add or substract
     const getDay = (appointment_id) => {
       return state.days.filter( day => day.appointments.includes(appointment_id))[0]
     }
@@ -120,7 +104,6 @@ function useApplicationData() {
         new_days.splice(i, 1, new_day )
       }
     }
-    //-------------
 
     return axios.delete(`/api/appointments/${id}`)
     .then(response => {

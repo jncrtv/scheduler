@@ -26,10 +26,6 @@ export default function Application(props) {
   //Returns an array of interviewers objects for a given day
   const interListForDay = getInterviewersForDay(state, state.day);
   
-  // console.log('INTERVIEWER LIST ', interListForDay);
-  // console.log('apptListForDay -->', apptListForDay)
-  // console.log('STATE -->', state)
-  
   //Returns schedule for the day comprised of the individual appoinments
   const schedule = apptListForDay.map((appointment) => {
     
@@ -45,8 +41,6 @@ export default function Application(props) {
       cancelInterview={cancelInterview}
     />);
   });
-
-  // console.log('STATE from Application.js-->', state)
 
   return (
     <main className="layout">
