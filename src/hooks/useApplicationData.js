@@ -24,6 +24,7 @@ function useApplicationData() {
         ([{data: days}, {data: appointments}, {data: interviewers}]) => {
         // console.log('ALL --> ', all)
         setState((prev) => ({ 
+          ...prev,
           days,
           appointments,
           interviewers
@@ -36,7 +37,7 @@ function useApplicationData() {
 
 
   //BOOK INTERVIEW APPT FUNCTION ---
-  function bookInterview(id, interview) {
+  function bookInterview(id, interview, isUpdate) {
     // console.log('Book --->', id, interview);
 
     const getDay = (appointment_id) => {
@@ -55,10 +56,13 @@ function useApplicationData() {
 
     const day = getDay(id)
     // console.log(`day: ${JSON.stringify(day)}`)
-    const new_day = {
-      ...day,
-      spots: day.spots - 1
-    }
+    
+    const new_day = {...day, spots: (isUpdate) ? day.spots : day.spots - 1 }
+
+    // const new_day = {
+    //   ...day,
+    //   spots: day.spots + 1
+    // }
 
     let new_days = state.days
 

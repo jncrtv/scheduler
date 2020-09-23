@@ -31,7 +31,7 @@ export default function Appoinment(props) {
   
   //SAVE FUNCTION ---
   // saves interview object to pass to bookInterview function and on resolved promise transitions to show mode
-  function save(name, interviewer) {
+  function save(name, interviewer, isUpdate) {
     const interview = {
       student: name,
       interviewer
@@ -39,7 +39,7 @@ export default function Appoinment(props) {
     
     transition(SAVING);
 
-    props.bookInterview(props.id, interview)
+    props.bookInterview(props.id, interview, isUpdate)
       .then(() =>  transition(SHOW))
       .catch(error => transition(ERROR_SAVE, true))
   }
@@ -76,7 +76,7 @@ export default function Appoinment(props) {
         <Form 
           interviewers={props.interviewers}  
           onCancel={back} 
-          onSave={save}
+          onSave={(name, interviewer) => save(name, interviewer, false)}
         />
       )}
 
@@ -86,7 +86,7 @@ export default function Appoinment(props) {
           name={props.interview.student}
           interviewer={props.interview.interviewer.id}
           onCancel={back} 
-          onSave={save}
+          onSave={(name, interviewer) => save(name, interviewer, true)}
         />
       )}
       
